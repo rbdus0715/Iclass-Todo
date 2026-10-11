@@ -1,0 +1,70 @@
+/* 색은 지정하지 않고 사이트 글씨색을 그대로 상속한다. 흐린 글씨는 opacity로만 구분 */
+
+.icc-box {
+  margin: 0 10px 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+.icc-line { display: flex; flex-wrap: wrap; gap: 0 10px; }
+.icc-stat.icc-soon { font-weight: bold; }
+.icc-muted { opacity: 0.5; }
+
+.icc-list { display: none; margin-top: 4px; }
+.icc-box.icc-open .icc-list { display: block; }
+
+.icc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+.icc-item:hover .icc-item-title { text-decoration: underline; }
+.icc-kind { flex: none; opacity: 0.5; font-size: 11px; }
+.icc-item-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.icc-item-course { font-size: 11px; opacity: 0.5; }
+.icc-item-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.icc-item-due { flex: none; opacity: 0.6; font-size: 11px; }
+.icc-item.icc-soon .icc-item-due { opacity: 1; font-weight: bold; }
+.icc-meta { margin-top: 2px; opacity: 0.5; font-size: 11px; }
+
+.icc-summary {
+  margin: 0 0 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+}
+.icc-summary-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.icc-summary-title { font-weight: bold; }
+.icc-summary-head { cursor: pointer; user-select: none; }
+.icc-summary-actions { display: flex; align-items: center; gap: 12px; }
+.icc-refresh { font-size: 12px; }
+.icc-summary-clip { overflow: hidden; transition: height 0.25s ease; }
+.icc-summary.icc-collapsed .icc-summary-head { border-bottom-color: transparent; }
+
+.icc-arrow { transition: transform 0.25s ease; }
+.icc-summary.icc-collapsed .icc-arrow { transform: rotate(180deg); }
+.icc-arrow-css {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-top: 4px;
+  border-left: 1.5px solid currentColor;
+  border-top: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+.icc-summary.icc-collapsed .icc-arrow-css { transform: rotate(225deg); margin-top: -3px; }
+.icc-summary-body { padding: 4px 12px 8px; max-height: 260px; overflow-y: auto; }
+.icc-summary-body .icc-item { border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 5px 0; }
+.icc-summary-body .icc-item:last-child { border-bottom: 0; }

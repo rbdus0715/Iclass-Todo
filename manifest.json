@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "I-Class 할 일 체크",
+  "version": "1.0.0",
+  "description": "인하대 I-Class 홈 화면의 강의 목록에 미시청 영상과 미제출 과제를 표시합니다.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://learn.inha.ac.kr/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
