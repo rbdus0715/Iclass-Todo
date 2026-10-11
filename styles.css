@@ -1,4 +1,5 @@
-/* 색은 지정하지 않고 사이트 글씨색을 그대로 상속한다. 흐린 글씨는 opacity로만 구분 */
+/* 색은 사이트 글씨색을 상속하고, 흐린 글씨는 opacity로 구분. 미시청·미제출은 빨간색, 1주일 넘게 남으면 파란색 (Moodle text-danger / text-primary) */
+:root { --icc-red: #d9534f; --icc-blue: #337ab7; }
 
 .icc-box {
   margin: 0 10px 8px;
@@ -10,7 +11,9 @@
   cursor: pointer;
 }
 .icc-line { display: flex; flex-wrap: wrap; gap: 0 10px; }
+.icc-stat { color: var(--icc-red); }
 .icc-stat.icc-soon { font-weight: bold; }
+.icc-stat.icc-later { color: var(--icc-blue); }
 .icc-muted { opacity: 0.5; }
 
 .icc-list { display: none; margin-top: 4px; }
@@ -24,11 +27,12 @@
   color: inherit !important;
   text-decoration: none !important;
 }
+.icc-item.icc-later .icc-item-title { color: var(--icc-blue); }
 .icc-item:hover .icc-item-title { text-decoration: underline; }
 .icc-kind { flex: none; opacity: 0.5; font-size: 11px; }
 .icc-item-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .icc-item-course { font-size: 11px; opacity: 0.5; }
-.icc-item-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.icc-item-title { color: var(--icc-red); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .icc-item-due { flex: none; opacity: 0.6; font-size: 11px; }
 .icc-item.icc-soon .icc-item-due { opacity: 1; font-weight: bold; }
 .icc-meta { margin-top: 2px; opacity: 0.5; font-size: 11px; }

@@ -8,6 +8,7 @@
   const CACHE_TTL = 10 * 60 * 1000; // 10분
   const CONCURRENCY = 3;
   const SOON = 2 * 24 * 3600 * 1000; // 48시간 이내면 긴급 표시
+  const LATER = 7 * 24 * 3600 * 1000; // 1주일보다 많이 남으면 여유 표시
   const log = (...a) => console.debug('[iclass-check]', ...a);
 
   const clean = (s) => (s || '').replace(/\s+/g, ' ').trim();
@@ -239,12 +240,15 @@
 
   const minEnd = (items) => Math.min(...items.map((i) => i.end || Infinity));
   const isSoon = (items) => minEnd(items) - Date.now() < SOON;
+  // 기한 없는 항목이 있으면 여유로 보지 않는다
+  const isLater = (items) => items.every((i) => i.end && i.end - Date.now() > LATER);
   const byEnd = (a, b) => (a.end || Infinity) - (b.end || Infinity);
 
   function itemRow(item, courseTitle) {
     const row = h('a', 'icc-item');
     if (item.url) row.href = item.url;
     if (item.end && item.end - Date.now() < SOON) row.classList.add('icc-soon');
+    if (isLater([item])) row.classList.add('icc-later');
     row.append(h('span', 'icc-kind', item.kind === 'video' ? '영상' : '과제'));
     const body = h('span', 'icc-item-body');
     if (courseTitle) body.append(h('span', 'icc-item-course', courseTitle));
@@ -281,7 +285,7 @@
     const aTodo = data.assigns.filter((a) => a.status === 'todo');
 
     const line = h('div', 'icc-line');
-    const stat = (text, items) => line.append(h('span', `icc-stat${isSoon(items) ? ' icc-soon' : ''}`, text));
+    const stat = (text, items) => line.append(h('span', `icc-stat${isSoon(items) ? ' icc-soon' : isLater(items) ? ' icc-later' : ''}`, text));
     if (vTodo.length) stat(`미시청 영상 ${vTodo.length}`, vTodo);
     if (aTodo.length) {
       const rel = dueLabel(minEnd(aTodo)).match(/\((.*)\)/)?.[1];
